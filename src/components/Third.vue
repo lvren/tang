@@ -1,18 +1,17 @@
 <template>
-  <card>
-    <img slot="header" src="http://placeholder.qiniudn.com/640x300" style="width:100%;display:block;">
-    <div slot="content">
-      <panel header="产品名称" :list="list" type="2"></panel>
+  <card :header="{title: '验证加入分享'}">
+    <div slot="content" style="text-align: center; padding: 24px 0;">
+      <qrcode value="https://vux.li?x-page=demo_qrcode" type="img"></qrcode>
     </div>
   </card>
 </template>
 
 <script>
-import { Panel, Card } from "vux";
+import { Qrcode, Card } from "vux";
 
 export default {
   components: {
-    Panel,
+    Qrcode,
     Card
   },
   data() {
