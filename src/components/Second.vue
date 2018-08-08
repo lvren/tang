@@ -10,7 +10,7 @@
       <x-input title="微信号" required />
     </group>
     <div style="padding:15px;">
-      <x-button @click.native="iconType = 'success'" type="primary">验证并加入分享</x-button>
+      <x-button @click.native="validateCode" type="primary">验证并加入分享</x-button>
     </div>
   </div>
 </template>
@@ -25,6 +25,9 @@ export default {
     Group,
     XButton,
     Cell
+  },
+  props: {
+    nextStep: Function
   },
   data() {
     return {
@@ -76,6 +79,9 @@ export default {
       this.codeTimer = setInterval(() => {
         this.countDown -= 1;
       }, 1000)
+    },
+    validateCode() {
+      this.nextStep();
     }
   }
 };

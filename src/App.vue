@@ -1,8 +1,10 @@
 <template>
   <div id="app" style="height:100%;">
     <x-header
+      :left-options="{preventGoBack: true}"
       :right-options="{showMore: true}"
       @on-click-more="showMenus = true"
+      @on-click-back="step--"
     >
       导航
     </x-header>
@@ -15,15 +17,17 @@
     </div>
     <view-box ref="viewBox">
       <First v-if="step === 0" />
-      <Second v-if="step === 1" />
+      <Second v-if="step === 1" :nextStep="nextStep" />
       <Third v-if="step === 2" />
     </view-box>
-    <tabbar slot="bottom">
+    <tabbar slot="bottom" v-if="step === 0">
       <div class="bottom-wrapper">
-      <div class="bottom-content-left">金额：<span class="bottom-content-count">￥99</span></div>
-      <div class="bottom-content-right">
-        <x-button mini type="primary" @click.native="nextStep">立即购买</x-button>
-      </div>
+        <div class="bottom-content-left">金额：
+          <span class="bottom-content-count">￥99</span>
+        </div>
+        <div class="bottom-content-right">
+          <x-button mini type="primary" @click.native="nextStep">立即购买</x-button>
+        </div>
       </div>
     </tabbar>
     <div v-transfer-dom>
@@ -63,8 +67,8 @@ export default {
   data() {
     return {
       menus: {
-        menu1: "Take Photo",
-        menu2: "Choose from photos"
+        menu1: "分享给朋友",
+        menu2: "分享到朋友圈"
       },
       step: 0,
       showMenus: false
