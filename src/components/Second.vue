@@ -1,20 +1,23 @@
 <template>
   <div>
     <group title="验证手机，让我们更好的为独一无二的您服务">
-      <x-input title="手机号" class="weui-vcode">
-        <x-button slot="right" type="primary" mini>发送验证码</x-button>
+      <x-input v-model="mobile" title="手机号" class="weui-vcode">
+        <x-button :disabled="disabledBtn" slot="right" :type="disabledBtn ? 'default' : 'primary'" mini @click.native="sendCode">
+          {{ disabledBtn ? `${countDown}s后重试` : '发送验证码'}}
+        </x-button>
       </x-input>
-      <x-input title="验证码"></x-input>
-      <x-input title="微信号"></x-input>
+      <x-input title="验证码" required />
+      <x-input title="微信号" required />
     </group>
     <div style="padding:15px;">
-    <x-button @click.native="iconType = 'success'" type="primary">验证并加入分享</x-button>
+      <x-button @click.native="iconType = 'success'" type="primary">验证并加入分享</x-button>
     </div>
   </div>
 </template>
 
 <script>
 import { XInput, Group, XButton, Cell } from "vux";
+import { clearInterval, setInterval } from 'timers';
 
 export default {
   components: {
@@ -25,6 +28,10 @@ export default {
   },
   data() {
     return {
+      disabledBtn: false,
+      codeTimer: null,
+      mobile: null,
+      countDown: 0,
       list: [
         {
           title: "介绍1",
@@ -52,6 +59,24 @@ export default {
         }
       ]
     };
+  },
+  watch: {
+    countDown(value) {
+      if (value === 0) {
+        clearInterval(this.codeTimer);
+        this.disabledBtn = false;
+      }
+    }
+  },
+  methods: {
+    sendCode() {
+      this.disabledBtn = true;
+      this.countDown = 5;
+      clearInterval(this.codeTimer);
+      this.codeTimer = setInterval(() => {
+        this.countDown -= 1;
+      }, 1000)
+    }
   }
 };
 </script>
