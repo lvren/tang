@@ -1,13 +1,14 @@
 import Vue from 'vue';
 import FastClick from 'fastclick';
 // import VueRouter from 'vue-router';
-import { TransferDom } from 'vux';
+import { TransferDom, AjaxPlugin } from 'vux';
 import App from './App';
 // import Home from './components/Layout';
 
 
 Vue.directive('transfer-dom', TransferDom);
 // Vue.use(VueRouter);
+Vue.use(AjaxPlugin);
 
 // const routes = [{
 //   path: '/',

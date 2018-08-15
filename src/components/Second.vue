@@ -6,8 +6,8 @@
           {{ disabledBtn ? `${countDown}s后重试` : '发送验证码'}}
         </x-button>
       </x-input>
-      <x-input title="验证码" required />
-      <x-input title="微信号" required />
+      <x-input v-model="code" title="验证码" required />
+      <x-input v-model="weixin" title="微信号" required />
     </group>
     <div style="padding:15px;">
       <x-button @click.native="validateCode" type="primary">验证并加入分享</x-button>
@@ -35,32 +35,8 @@ export default {
       codeTimer: null,
       mobile: null,
       countDown: 0,
-      list: [
-        {
-          title: "介绍1",
-          desc: "由各种物质组成的巨型球状天体，叫做星球。有自己的运行轨道。"
-        },
-        {
-          title: "介绍2",
-          desc: "由各种物质组成的巨型球状天体，叫做星球。有自己的运行轨道。"
-        },
-        {
-          title: "介绍2",
-          desc: "由各种物质组成的巨型球状天体，叫做星球。有自己的运行轨道。"
-        },
-        {
-          title: "介绍2",
-          desc: "由各种物质组成的巨型球状天体，叫做星球。有自己的运行轨道。"
-        },
-        {
-          title: "介绍2",
-          desc: "由各种物质组成的巨型球状天体，叫做星球。有自己的运行轨道。"
-        },
-        {
-          title: "介绍2",
-          desc: "由各种物质组成的巨型球状天体，叫做星球。有自己的运行轨道。"
-        }
-      ]
+      code: null,
+      weixin: null,
     };
   },
   watch: {
@@ -74,14 +50,29 @@ export default {
   methods: {
     sendCode() {
       this.disabledBtn = true;
-      this.countDown = 5;
+      this.countDown = 60;
       clearInterval(this.codeTimer);
+      this.$http.get('/api/sendCode', {
+        params: {
+          mobile: this.mobile
+        }
+      }).then(({ data }) => {
+        console.log(data)
+      })
       this.codeTimer = setInterval(() => {
         this.countDown -= 1;
       }, 1000)
     },
     validateCode() {
-      this.nextStep();
+      this.$http.get('/api/saveInfo', {
+        params: {
+          mobile: this.mobile,
+          code: this.code,
+          weixin: this.weixin,
+        }
+      }).then(({ data }) => {
+        this.nextStep();
+      })
     }
   }
 };
