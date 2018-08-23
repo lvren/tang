@@ -3,12 +3,15 @@
     <group title="验证手机，让我们更好的为独一无二的您服务">
       <x-input v-model="mobile" title="手机号" class="weui-vcode">
         <x-button :disabled="disabledBtn" slot="right" :type="disabledBtn ? 'default' : 'primary'" mini @click.native="sendCode">
-          {{ disabledBtn ? `${countDown}s后重试` : '发送验证码'}}
+          {{ disabledBtn && countDown !== 0 ? `${countDown}s后重试` : '发送验证码'}}
         </x-button>
       </x-input>
       <x-input v-model="code" title="验证码" required />
       <x-input v-model="weixin" title="微信号" required />
     </group>
+    <div v-transfer-dom>
+      <Alert v-model="showMsg" :title="msgTitle">{{ msgMessage }}</Alert>
+    </div>
     <div style="padding:15px;">
       <x-button @click.native="validateCode" type="primary">验证并加入分享</x-button>
     </div>
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-import { XInput, Group, XButton, Cell } from "vux";
+import { XInput, Group, XButton, Cell, Alert } from "vux";
 import { clearInterval, setInterval } from 'timers';
 
 export default {
@@ -24,6 +27,7 @@ export default {
     XInput,
     Group,
     XButton,
+    Alert,
     Cell
   },
   props: {
@@ -31,15 +35,25 @@ export default {
   },
   data() {
     return {
-      disabledBtn: false,
+      disabledBtn: true,
       codeTimer: null,
       mobile: null,
       countDown: 0,
       code: null,
       weixin: null,
+      msgTitle: null,
+      msgMessage: null,
+      showMsg: false
     };
   },
   watch: {
+    mobile(value) {
+      if (!value || /\d{11}/.test(value)) {
+        this.disabledBtn = false;
+      } else {
+        this.disabledBtn = true;
+      }
+    },
     countDown(value) {
       if (value === 0) {
         clearInterval(this.codeTimer);
@@ -57,7 +71,13 @@ export default {
           mobile: this.mobile
         }
       }).then(({ data }) => {
-        console.log(data)
+        console.log('testst');
+        console.log(this);
+
+        this.msgTitle = data && data.status ? '验证码发送成功' : '验证码发送失败';
+        this.msgMessage = data && data.message ? data.message : "";
+        this.showMsg = true;
+        console.log(this.showMsg);
       })
       this.codeTimer = setInterval(() => {
         this.countDown -= 1;
