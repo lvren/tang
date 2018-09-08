@@ -14,7 +14,7 @@
           <span class="bottom-content-count">￥99</span>
         </div>
         <div class="bottom-content-right">
-          <x-button mini type="primary" @click.native="nextStep">立即购买</x-button>
+          <x-button mini type="primary" @click.native="jsApiCall">立即购买</x-button>
         </div>
       </div>
     </tabbar>
@@ -52,9 +52,30 @@ export default {
     };
   },
   methods: {
-    nextStep() {
-
-    }
+    jsApiCall() {
+      this.$http.get('/api/getPayParam').then(({ data }) => {
+        if (data && data.status) {
+          const jsApiParameters = data.param;
+          // this.$wechat.chooseWXPay({
+          //   ...jsApiParameters,
+          //   success: function (res) {
+          //     console.log(res);
+          //   }
+          // });
+          WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',
+            jsApiParameters,
+            (res) => {
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                $this.$router.push('/pay');
+              } else {
+                alert(res.err_code + res.err_desc + res.err_msg);
+              }
+            }
+          );
+        }
+      })
+    },
   }
 };
 </script>

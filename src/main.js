@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import FastClick from 'fastclick';
 import VueRouter from 'vue-router';
-import { TransferDom, AjaxPlugin } from 'vux';
+import { TransferDom, AjaxPlugin, WechatPlugin } from 'vux';
 import App from './App';
 import Layout from './Layout';
 import First from './components/First';
@@ -11,6 +11,7 @@ import Third from './components/Third';
 
 Vue.directive('transfer-dom', TransferDom);
 Vue.use(VueRouter);
+Vue.use(WechatPlugin);
 Vue.use(AjaxPlugin);
 
 const routes = [{
