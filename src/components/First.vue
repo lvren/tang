@@ -56,25 +56,26 @@ export default {
       this.$http.get('/api/getPayParam').then(({ data }) => {
         if (data && data.status) {
           const jsApiParameters = data.param;
-          // this.$wechat.chooseWXPay({
-          //   ...jsApiParameters,
-          //   success: function (res) {
-          //     console.log(res);
-          //   }
-          // });
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest',
             jsApiParameters,
             (res) => {
               if (res.err_msg == "get_brand_wcpay_request:ok") {
-                $this.$router.push('/pay');
+                this.$router.push({ path: `/pay` });
               } else {
                 alert(res.err_code + res.err_desc + res.err_msg);
               }
             }
           );
         }
-      })
+      }).catch((err) => {
+        const { response } = err;
+        if (response.status === 401) {
+          const url = window.location.href;
+          window.location.href = `http://talktoalumni.com/api/login?redirect=${url}`;
+        }
+        throw err;
+      });
     },
   }
 };
