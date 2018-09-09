@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:100%;">
     <view-box ref="viewBox">
       <card>
         <img slot="header" src="../assets/background.jpeg" style="width:100%;display:block;">
@@ -8,6 +8,9 @@
         </div>
       </card>
     </view-box>
+    <div v-transfer-dom>
+      <Alert v-model="showMsg" :title="msgTitle">{{ msgMessage }}</Alert>
+    </div>
     <tabbar slot="bottom">
       <div class="bottom-wrapper">
         <div class="bottom-content-left">金额：
@@ -23,7 +26,7 @@
 </template>
 
 <script>
-import { ViewBox, Tabbar, Panel, Card, XButton } from "vux";
+import { ViewBox, Tabbar, Panel, Card, XButton, Alert } from "vux";
 
 export default {
   components: {
@@ -31,6 +34,7 @@ export default {
     Panel,
     Tabbar,
     XButton,
+    Alert,
     Card
   },
   data() {
@@ -48,25 +52,33 @@ export default {
           title: "分享内容",
           desc: "本次校友分享时长约1小时，分享主题为：1. 丹麦学校 \n\r 2. 学习环境 \n\r 3. 专业选择 \n\r 4. 学校申请 \n\r 5. 留学生活常识（住宿） \n\r"
         },
-      ]
+      ],
+      showMsg: false,
+      msgTitle: '',
+      msgMessage: '',
     };
   },
   methods: {
     jsApiCall() {
-      this.$http.get('/api/getPayParam').then(({ data }) => {
+      this.$http.get('/api/getPayParam', { params: { product: 'test' } }).then(({ data }) => {
         if (data && data.status) {
           const jsApiParameters = data.param;
-          WeixinJSBridge.invoke(
-            'getBrandWCPayRequest',
-            jsApiParameters,
-            (res) => {
-              if (res.err_msg == "get_brand_wcpay_request:ok") {
-                this.$router.push({ path: `/pay` });
-              } else {
-                alert(res.err_code + res.err_desc + res.err_msg);
-              }
-            }
-          );
+          this.$router.push({ path: `/pay` });
+          // WeixinJSBridge.invoke(
+          //   'getBrandWCPayRequest',
+          //   jsApiParameters,
+          //   (res) => {
+          //     if (res.err_msg == "get_brand_wcpay_request:ok") {
+          //       this.$router.push({ path: `/pay` });
+          //     } else {
+          //       alert(res.err_code + res.err_desc + res.err_msg);
+          //     }
+          //   }
+          // );
+        } else {
+          this.msgTitle = '下单失败';
+          this.msgMessage = data && data.message ? data.message : '下单失败';
+          this.showMsg = true;
         }
       }).catch((err) => {
         const { response } = err;

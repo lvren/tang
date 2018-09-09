@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:100%;">
     <group title="验证手机，让我们更好的为独一无二的您服务">
       <x-input v-model="mobile" title="手机号" class="weui-vcode">
         <x-button :disabled="disabledBtn" slot="right" :type="disabledBtn ? 'default' : 'primary'" mini @click.native="sendCode">
@@ -29,9 +29,6 @@ export default {
     XButton,
     Alert,
     Cell
-  },
-  props: {
-    nextStep: Function
   },
   data() {
     return {
@@ -71,27 +68,28 @@ export default {
           mobile: this.mobile
         }
       }).then(({ data }) => {
-        console.log('testst');
-        console.log(this);
-
         this.msgTitle = data && data.status ? '验证码发送成功' : '验证码发送失败';
         this.msgMessage = data && data.message ? data.message : "";
         this.showMsg = true;
-        console.log(this.showMsg);
       })
       this.codeTimer = setInterval(() => {
         this.countDown -= 1;
       }, 1000)
     },
     validateCode() {
-      this.$http.get('/api/saveInfo', {
-        params: {
-          mobile: this.mobile,
-          code: this.code,
-          weixin: this.weixin,
-        }
+      this.$http.post('/api/saveInfo', {
+        mobile: this.mobile,
+        code: this.code,
+        weixin: this.weixin,
       }).then(({ data }) => {
-        this.nextStep();
+        const { status } = data;
+        if (status) {
+          this.$router.push({ path: `/share` });
+        } else {
+          this.msgTitle = '验证失败';
+          this.msgMessage = data && data.message ? data.message : "验证信息失败";
+          this.showMsg = true;
+        }
       })
     }
   }
