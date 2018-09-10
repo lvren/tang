@@ -11,6 +11,9 @@
     <div v-transfer-dom>
       <Alert v-model="showMsg" :title="msgTitle">{{ msgMessage }}</Alert>
     </div>
+    <div v-transfer-dom>
+      <loading :show="showLoading"></loading>
+    </div>
     <tabbar slot="bottom">
       <div class="bottom-wrapper">
         <div class="bottom-content-left">金额：
@@ -26,7 +29,7 @@
 </template>
 
 <script>
-import { ViewBox, Tabbar, Panel, Card, XButton, Alert } from "vux";
+import { ViewBox, Tabbar, Panel, Card, XButton, Alert, Loading } from "vux";
 
 export default {
   components: {
@@ -35,6 +38,7 @@ export default {
     Tabbar,
     XButton,
     Alert,
+    Loading,
     Card
   },
   data() {
@@ -56,26 +60,44 @@ export default {
       showMsg: false,
       msgTitle: '',
       msgMessage: '',
+      showLoading: false,
     };
   },
+  beforeDestroy() {
+    this.timeout && clearTimeout(this.timeout);
+  },
   methods: {
+    checkOrder(orderId) {
+      this.$http.get('/api/checkOrder', { params: { order: orderId } }).then(({ data }) => {
+        if (data && data.status) {
+          this.showLoading = false;
+          this.$router.push({ path: `/pay` });
+        } else {
+          this.timeout && clearTimeout(this.timeout);
+          this.timeout = setTimeout(this.checkOrder.bind(this, orderId), 2000);
+        }
+      })
+    },
     jsApiCall() {
+      this.showLoading = true;
       this.$http.get('/api/getPayParam', { params: { product: 'test' } }).then(({ data }) => {
         if (data && data.status) {
-          const jsApiParameters = data.param;
-          this.$router.push({ path: `/pay` });
-          // WeixinJSBridge.invoke(
-          //   'getBrandWCPayRequest',
-          //   jsApiParameters,
-          //   (res) => {
-          //     if (res.err_msg == "get_brand_wcpay_request:ok") {
-          //       this.$router.push({ path: `/pay` });
-          //     } else {
-          //       alert(res.err_code + res.err_desc + res.err_msg);
-          //     }
-          //   }
-          // );
+          const { param, order } = data;
+          // console.log(param);
+          // this.checkOrder(order.orderId);
+          WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',
+            param,
+            (res) => {
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                this.checkOrder(order.orderId);
+              } else {
+                alert(res.err_code + res.err_desc + res.err_msg);
+              }
+            }
+          );
         } else {
+          this.showLoading = false;
           this.msgTitle = '下单失败';
           this.msgMessage = data && data.message ? data.message : '下单失败';
           this.showMsg = true;

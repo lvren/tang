@@ -7,6 +7,7 @@ import Layout from './Layout';
 import First from './components/First';
 import Second from './components/Second';
 import Third from './components/Third';
+import product from './Product';
 // import Home from './components/Layout';
 
 Vue.directive('transfer-dom', TransferDom);
@@ -39,8 +40,23 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  Vue.http.get('/api/isLogin').then(() => {
-    next();
+  Vue.http.get('/api/isLogin', {
+    params: { product },
+  }).then(({ data }) => {
+    const { order } = data;
+    let toPath = '/';
+    if (order && order.id) {
+      if (order.status) {
+        toPath = '/share';
+      } else {
+        toPath = '/pay';
+      }
+    }
+    if (to.path === toPath) {
+      next();
+    } else {
+      next({ path: toPath });
+    }
   }).catch((err) => {
     const { response } = err;
     if (response.status === 401) {
