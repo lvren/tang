@@ -46,10 +46,12 @@ router.beforeEach((to, from, next) => {
     const { order } = data;
     let toPath = '/';
     if (order && order.id) {
-      if (order.status) {
-        toPath = '/share';
-      } else {
-        toPath = '/pay';
+      if (order.isPay) {
+        if (order.status) {
+          toPath = '/share';
+        } else {
+          toPath = '/pay';
+        }
       }
     }
     if (to.path === toPath) {
