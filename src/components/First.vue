@@ -91,7 +91,13 @@ export default {
             param,
             (res) => {
               if (res.err_msg == "get_brand_wcpay_request:ok") {
-                this.checkOrder(order.orderId);
+                this.$http
+                  .get('/api/payOrder', { params: { order: order.orderId } })
+                  .then(() => {
+                    this.showLoading = false;
+                    this.$router.push({ path: `/pay` });
+                  })
+                // this.checkOrder(order.orderId);
               } else {
                 this.$http
                   .get('/api/closeOrder', { params: { order: order.orderId } })
