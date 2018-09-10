@@ -93,7 +93,14 @@ export default {
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 this.checkOrder(order.orderId);
               } else {
-                alert(res.err_code + res.err_desc + res.err_msg);
+                this.$http
+                  .get('/api/getPayParam', { params: { order: order.orderId } })
+                  .then(() => {
+                    this.showLoading = false;
+                    this.msgTitle = '下单失败';
+                    this.msgMessage = res.err_desc;
+                    this.showMsg = true;
+                  })
               }
             }
           );
