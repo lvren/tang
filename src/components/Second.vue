@@ -21,6 +21,7 @@
 <script>
 import { XInput, Group, XButton, Cell, Alert } from "vux";
 import { clearInterval, setInterval } from 'timers';
+import product from '../Product';
 
 export default {
   components: {
@@ -81,6 +82,7 @@ export default {
         mobile: this.mobile,
         code: this.code,
         weixin: this.weixin,
+        product,
       }).then(({ data }) => {
         const { status } = data;
         if (status) {
