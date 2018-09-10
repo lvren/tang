@@ -94,7 +94,7 @@ export default {
                 this.checkOrder(order.orderId);
               } else {
                 this.$http
-                  .get('/api/getPayParam', { params: { order: order.orderId } })
+                  .get('/api/closeOrder', { params: { order: order.orderId } })
                   .then(() => {
                     this.showLoading = false;
                     this.msgTitle = '下单失败';
