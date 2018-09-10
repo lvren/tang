@@ -30,6 +30,7 @@
 
 <script>
 import { ViewBox, Tabbar, Panel, Card, XButton, Alert, Loading } from "vux";
+import product from '../Product';
 
 export default {
   components: {
@@ -80,7 +81,7 @@ export default {
     },
     jsApiCall() {
       this.showLoading = true;
-      this.$http.get('/api/getPayParam', { params: { product: 'test' } }).then(({ data }) => {
+      this.$http.get('/api/getPayParam', { params: { product } }).then(({ data }) => {
         if (data && data.status) {
           const { param, order } = data;
           // console.log(param);
