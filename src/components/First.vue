@@ -4,7 +4,30 @@
       <card>
         <img slot="header" src="../assets/background.jpeg" style="width:100%;display:block;">
         <div slot="content">
-          <panel header="本期校友 --- 郑茹丹" :list="list" type="2"></panel>
+          <div class="desc-title">
+            <span class="title-main">郑茹丹</span>
+            <span>本期校友</span>
+            <span class="title-sec">丹麦留学</span>
+          </div>
+          <div class="detail-content">
+            <div class="detail-title">校友简介</div>
+            <div class="detail-main">
+              <p>郑茹丹，来自云南昆明，2013年来到丹麦求学。茹丹目前就读于丹麦奥尔堡大学全球化文化交流专业，是一名二年级研究生。</p>
+              <p>茹丹的求学之路始于丹麦西南商学院市场管理专业（AP项目=国内的专科）。从丹麦西南商学院毕业后，又顺利申请到北丹麦大学学院的国际销售和管理专业（BA项目=国内的本科），以及现在的奥尔堡大学全球化文化交流专业。（MA项目=国内的研究生）。来丹麦留学的五年里，茹丹跨越了三个主流丹麦高校类型（商学院、大学学院和综合性大学），学到了一些和国内不一样的学习生活经历。她期待把自己的经历和对丹麦感兴趣的学生分享，为他们精彩的留学梦做好准备。</p>
+            </div>
+          </div>
+          <div class="detail-content">
+            <div class="detail-title">分享主题（约一个小时）</div>
+            <div class="detail-main">
+              <ul>
+                <li>丹麦学校</li>
+                <li>学习环境</li>
+                <li>专业选择</li>
+                <li>学校申请</li>
+                <li>留学生活常识（住宿）</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </card>
     </view-box>
@@ -47,15 +70,14 @@ export default {
       list: [
         {
           title: "校友简历",
-          desc: "郑茹丹，来自云南昆明，2013年来到丹麦求学。茹丹目前就读于丹麦奥尔堡大学全球化文化交流专业，是一名二年级研究生。"
+          desc: ""
         },
         {
           title: "求学经历",
-          desc: "茹丹的求学之路始于丹麦西南商学院市场管理专业（AP项目=国内的专科）。从丹麦西南商学院毕业后，又顺利申请到北丹麦大学学院的国际销售和管理专业（BA项目=国内的本科），以及现在的奥尔堡大学全球化文化交流专业。（MA项目=国内的研究生）。来丹麦留学的五年里，茹丹跨越了三个主流丹麦高校类型（商学院、大学学院和综合性大学），学到了一些和国内不一样的学习生活经历。她期待把自己的经历和对丹麦感兴趣的学生分享，为他们精彩的留学梦做好准备。"
         },
         {
           title: "分享内容",
-          desc: "本次校友分享时长约1小时，分享主题为：1. 丹麦学校 \n\r 2. 学习环境 \n\r 3. 专业选择 \n\r 4. 学校申请 \n\r 5. 留学生活常识（住宿） \n\r"
+          desc: "本次校友分享时长约1小时，分享主题为："
         },
       ],
       showMsg: false,
@@ -86,30 +108,36 @@ export default {
           const { param, order } = data;
           // console.log(param);
           // this.checkOrder(order.orderId);
-          WeixinJSBridge.invoke(
-            'getBrandWCPayRequest',
-            param,
-            (res) => {
-              if (res.err_msg == "get_brand_wcpay_request:ok") {
-                this.$http
-                  .get('/api/payOrder', { params: { order: order.orderId } })
-                  .then(() => {
-                    this.showLoading = false;
-                    this.$router.push({ path: `/pay` });
-                  })
-                // this.checkOrder(order.orderId);
+          // WeixinJSBridge.invoke(
+          //   'getBrandWCPayRequest',
+          //   param,
+          //   (res) => {
+          //     if (res.err_msg == "get_brand_wcpay_request:ok") {
+          this.$http
+            .get('/api/payOrder', { params: { order: order.orderId } })
+            .then(({ data }) => {
+              this.showLoading = false;
+              if (data && data.status) {
+                this.$router.push({ path: `/pay` });
               } else {
-                this.$http
-                  .get('/api/closeOrder', { params: { order: order.orderId } })
-                  .then(() => {
-                    this.showLoading = false;
-                    this.msgTitle = '下单失败';
-                    this.msgMessage = res.err_desc;
-                    this.showMsg = true;
-                  })
+                this.msgTitle = '下单失败';
+                this.msgMessage = data && data.message ? data.message : '下单失败';
+                this.showMsg = true;
               }
-            }
-          );
+            })
+          //       // this.checkOrder(order.orderId);
+          //     } else {
+          //       this.$http
+          //         .get('/api/closeOrder', { params: { order: order.orderId } })
+          //         .then(() => {
+          //           this.showLoading = false;
+          //           this.msgTitle = '下单失败';
+          //           this.msgMessage = res.err_desc;
+          //           this.showMsg = true;
+          //         })
+          //     }
+          //   }
+          // );
         } else {
           this.showLoading = false;
           this.msgTitle = '下单失败';
@@ -130,4 +158,40 @@ export default {
 </script>
 
 <style lang="less">
+.desc-title {
+  padding: 14px 15px 5px;
+  color: #999999;
+  font-size: 13px;
+  position: relative;
+  .title-main {
+    font-size: 18px;
+    color: #000;
+  }
+  .title-sec {
+    font-size: 14px;
+    position: absolute;
+    right: 15px;
+  }
+}
+.detail-content {
+  padding: 5px 15px 5px;
+  .detail-title {
+    color: #999999;
+    font-size: 16px;
+    padding-bottom: 6px;
+  }
+  .detail-main {
+    font-size: 13px;
+    p {
+      text-indent: 1rem;
+      padding: 3px;
+    }
+    ul {
+      list-style-type: none;
+    }
+    li {
+      padding-bottom: 3px;
+    }
+  }
+}
 </style>
