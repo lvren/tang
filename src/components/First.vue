@@ -107,7 +107,7 @@ export default {
         if (data && data.status) {
           const { param, order } = data;
           // console.log(param);
-          this.checkOrder(order.orderId);
+          // this.checkOrder(order.orderId);
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest',
             param,

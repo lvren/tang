@@ -78,6 +78,12 @@ export default {
       }, 1000)
     },
     validateCode() {
+      if (!this.weixin) {
+        this.msgTitle = '验证失败';
+        this.msgMessage = '微信号为必填项目';
+        this.showMsg = true;
+        return false;
+      }
       this.$http.post('/api/saveInfo', {
         mobile: this.mobile,
         code: this.code,
