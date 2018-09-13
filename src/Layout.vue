@@ -20,9 +20,6 @@ export default {
     StepItem,
   },
   name: "app",
-  mounted() {
-    console.log(this.$wechat);
-  },
   computed: {
     step() {
       const { fullPath } = this.$route;
