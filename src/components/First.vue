@@ -166,6 +166,7 @@ export default {
   .title-main {
     font-size: 18px;
     color: #000;
+    font-weight: bolder;
   }
   .title-sec {
     font-size: 14px;
@@ -187,7 +188,8 @@ export default {
       padding: 3px;
     }
     ul {
-      list-style-type: none;
+      padding-bottom: 12px;
+      margin-left: 18px;
     }
     li {
       padding-bottom: 3px;
