@@ -107,37 +107,37 @@ export default {
         if (data && data.status) {
           const { param, order } = data;
           // console.log(param);
-          // this.checkOrder(order.orderId);
-          // WeixinJSBridge.invoke(
-          //   'getBrandWCPayRequest',
-          //   param,
-          //   (res) => {
-          //     if (res.err_msg == "get_brand_wcpay_request:ok") {
-          this.$http
-            .get('/api/payOrder', { params: { order: order.orderId } })
-            .then(({ data }) => {
-              this.showLoading = false;
-              if (data && data.status) {
-                this.$router.push({ path: `/pay` });
+          this.checkOrder(order.orderId);
+          WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',
+            param,
+            (res) => {
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                this.$http
+                  .get('/api/payOrder', { params: { order: order.orderId } })
+                  .then(({ data }) => {
+                    this.showLoading = false;
+                    if (data && data.status) {
+                      this.$router.push({ path: `/pay` });
+                    } else {
+                      this.msgTitle = '下单失败';
+                      this.msgMessage = data && data.message ? data.message : '下单失败';
+                      this.showMsg = true;
+                    }
+                  })
+                // this.checkOrder(order.orderId);
               } else {
-                this.msgTitle = '下单失败';
-                this.msgMessage = data && data.message ? data.message : '下单失败';
-                this.showMsg = true;
+                this.$http
+                  .get('/api/closeOrder', { params: { order: order.orderId } })
+                  .then(() => {
+                    this.showLoading = false;
+                    this.msgTitle = '下单失败';
+                    this.msgMessage = res.err_desc;
+                    this.showMsg = true;
+                  })
               }
-            })
-          //       // this.checkOrder(order.orderId);
-          //     } else {
-          //       this.$http
-          //         .get('/api/closeOrder', { params: { order: order.orderId } })
-          //         .then(() => {
-          //           this.showLoading = false;
-          //           this.msgTitle = '下单失败';
-          //           this.msgMessage = res.err_desc;
-          //           this.showMsg = true;
-          //         })
-          //     }
-          //   }
-          // );
+            }
+          );
         } else {
           this.showLoading = false;
           this.msgTitle = '下单失败';
