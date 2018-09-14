@@ -50,16 +50,16 @@ Vue.http.get('/api/jsConfig', {
     });
   }
 });
-
+console.log(shareImg);
 wx.ready(() => {
   wx.updateAppMessageShareData({
-    title: '校友说-链接你与海外校友',
-    desc: '郑茹丹丹麦留学分享',
-    link: shareImg,
+    title: '校友说',
+    desc: '听校友说，关于留学的一切！',
+    imgUrl: shareImg,
   });
   wx.updateTimelineShareData({
     title: '校友说-链接你与海外校友', // 分享标题
-    link: shareImg,
+    imgUrl: shareImg,
   });
 });
 
