@@ -8,7 +8,7 @@ import First from './components/First';
 import Second from './components/Second';
 import Third from './components/Third';
 import product from './Product';
-import shareImg from './assets/shareimg.jpeg';
+import shareImg from './assets/shareLogo.jpeg';
 // import Home from './components/Layout';
 
 Vue.directive('transfer-dom', TransferDom);
@@ -59,7 +59,7 @@ wx.ready(() => {
   });
   wx.updateTimelineShareData({
     title: '校友说-链接你与海外校友', // 分享标题
-    imgUrl: shareImg,
+    imgUrl: `http://talktoalumni.com${shareImg}`,
   });
 });
 
