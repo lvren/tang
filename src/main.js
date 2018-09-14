@@ -46,17 +46,17 @@ Vue.http.get('/api/jsConfig', {
     wx.config({
       ...data,
       debug: true,
-      jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData'],
+      jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData', 'onMenuShareAppMessage', 'onMenuShareTimeline'],
     });
   }
 });
 wx.ready(() => {
-  wx.updateAppMessageShareData({
+  wx.onMenuShareTimeline({
     title: '校友说',
     desc: '听校友说，关于留学的一切！',
-    imgUrl: shareImg,
+    imgUrl: `http://talktoalumni.com${shareImg}`,
   });
-  wx.updateTimelineShareData({
+  wx.onMenuShareAppMessage({
     title: '校友说-链接你与海外校友', // 分享标题
     imgUrl: `http://talktoalumni.com${shareImg}`,
   });
