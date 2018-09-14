@@ -5,9 +5,12 @@
         <img slot="header" src="../assets/background.jpeg" style="width:100%;display:block;">
         <div slot="content">
           <div class="desc-title">
-            <span class="title-main">郑茹丹</span>
-            <span>本期校友</span>
-            <span class="title-sec">丹麦留学</span>
+            <img slot="header" src="../assets/person.jpeg" class="title-img" />
+            <div class="title-desc">
+              <span class="title-main">郑茹丹</span>
+              <span>本期校友</span>
+            </div>
+            <div class="title-sec">丹麦留学</div>
           </div>
           <div class="detail-content">
             <div class="detail-title">校友简介</div>
@@ -159,10 +162,18 @@ export default {
 
 <style lang="less">
 .desc-title {
-  padding: 14px 15px 5px;
+  padding: 14px 15px 0;
   color: #999999;
   font-size: 13px;
   position: relative;
+  height: 80px;
+  .title-desc {
+    padding: 6px 0;
+  }
+  .title-img {
+    height: 75px;
+    float: right;
+  }
   .title-main {
     font-size: 18px;
     color: #000;
@@ -170,12 +181,10 @@ export default {
   }
   .title-sec {
     font-size: 14px;
-    position: absolute;
-    right: 15px;
   }
 }
 .detail-content {
-  padding: 5px 15px 5px;
+  padding: 0 15px 5px;
   .detail-title {
     color: #999999;
     font-size: 16px;
