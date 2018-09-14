@@ -52,12 +52,12 @@ Vue.http.get('/api/jsConfig', {
 });
 wx.ready(() => {
   wx.onMenuShareTimeline({
-    title: '校友说',
-    desc: '听校友说，关于留学的一切！',
+    title: '校友说-链接你与海外校友',
     imgUrl: `http://talktoalumni.com${shareImg}`,
   });
   wx.onMenuShareAppMessage({
-    title: '校友说-链接你与海外校友', // 分享标题
+    title: '校友说', // 分享标题
+    desc: '听校友说，关于留学的一切！',
     imgUrl: `http://talktoalumni.com${shareImg}`,
   });
 });
