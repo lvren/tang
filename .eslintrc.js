@@ -23,7 +23,8 @@ module.exports = {
     }
   },
   'globals': {
-    'document': true
+    'document': true,
+    "wx": true,
   },
   // add your custom rules here
   'rules': {
@@ -32,7 +33,7 @@ module.exports = {
       'js': 'never',
       'vue': 'never'
     }],
-    'import/no-unresolved': [0, {commonjs: true, amd: true}],
+    'import/no-unresolved': [0, { commonjs: true, amd: true }],
     // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
       'optionalDependencies': ['test/unit/index.js']

@@ -50,7 +50,6 @@ Vue.http.get('/api/jsConfig', {
     });
   }
 });
-console.log(shareImg);
 wx.ready(() => {
   wx.updateAppMessageShareData({
     title: '校友说',
