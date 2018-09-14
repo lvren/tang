@@ -45,7 +45,7 @@ Vue.http.get('/api/jsConfig', {
   if (status) {
     wx.config({
       ...data,
-      debug: true,
+      debug: false,
       jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData', 'onMenuShareAppMessage', 'onMenuShareTimeline'],
     });
   }
