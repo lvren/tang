@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import FastClick from 'fastclick';
 import VueRouter from 'vue-router';
-import { TransferDom, AjaxPlugin, WechatPlugin } from 'vux';
+import { TransferDom, AjaxPlugin } from 'vux';
 import App from './App';
 import Layout from './Layout';
 import First from './components/First';
 import Second from './components/Second';
 import Third from './components/Third';
 import product from './Product';
+import shareImg from './assets/shareimg.jpeg';
 // import Home from './components/Layout';
 
 Vue.directive('transfer-dom', TransferDom);
 Vue.use(VueRouter);
-Vue.use(WechatPlugin);
 Vue.use(AjaxPlugin);
 
 const routes = [{
@@ -37,6 +37,30 @@ const routes = [{
 const router = new VueRouter({
   mode: 'history',
   routes,
+});
+
+Vue.http.get('/api/jsConfig', {
+  params: { href: location.href },
+}).then(({ data: { data, status } }) => {
+  if (status) {
+    wx.config({
+      ...data,
+      debug: true,
+      jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData'],
+    });
+  }
+});
+
+wx.ready(() => {
+  wx.updateAppMessageShareData({
+    title: '校友说-链接你与海外校友',
+    desc: '郑茹丹丹麦留学分享',
+    link: shareImg,
+  });
+  wx.updateTimelineShareData({
+    title: '校友说-链接你与海外校友', // 分享标题
+    link: shareImg,
+  });
 });
 
 router.beforeEach((to, from, next) => {

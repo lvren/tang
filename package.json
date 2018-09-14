@@ -11,7 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "es6-promise": "^4.2.4",
+    "es6-promise": "^4.2.5",
     "fastclick": "^1.0.6",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -64,7 +64,7 @@
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-dev-server": "^2.11.3",
-    "webpack-hot-middleware": "^2.23.1",
+    "webpack-hot-middleware": "^2.24.0",
     "webpack-merge": "^4.1.4",
     "yaml-loader": "^0.4.0"
   },
