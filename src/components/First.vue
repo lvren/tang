@@ -16,7 +16,8 @@
             <div class="detail-title">校友简介</div>
             <div class="detail-main">
               <p>郑茹丹，来自云南昆明，2013年来到丹麦求学。茹丹目前就读于丹麦奥尔堡大学全球化文化交流专业，是一名二年级研究生。</p>
-              <p>茹丹的求学之路始于丹麦西南商学院市场管理专业（AP项目=国内的专科）。从丹麦西南商学院毕业后，又顺利申请到北丹麦大学学院的国际销售和管理专业（BA项目=国内的本科），以及现在的奥尔堡大学全球化文化交流专业。（MA项目=国内的研究生）。来丹麦留学的五年里，茹丹跨越了三个主流丹麦高校类型（商学院、大学学院和综合性大学），学到了一些和国内不一样的学习生活经历。她期待把自己的经历和对丹麦感兴趣的学生分享，为他们精彩的留学梦做好准备。</p>
+              <p>茹丹的求学之路始于丹麦西南商学院市场管理专业（AP项目=国内的专科）。从丹麦西南商学院毕业后，又顺利申请到北丹麦大学学院的国际销售和管理专业（BA项目=国内的本科），以及现在的奥尔堡大学全球化文化交流专业。（MA项目=国内的研究生）。</p>
+              <p>来丹麦留学的五年里，茹丹跨越了三个主流丹麦高校类型（商学院、大学学院和综合性大学），学到了一些和国内不一样的学习生活经历。她期待把自己的经历和对丹麦感兴趣的学生分享，为他们精彩的留学梦做好准备。</p>
             </div>
           </div>
           <div class="detail-content">
@@ -43,7 +44,7 @@
     <tabbar slot="bottom">
       <div class="bottom-wrapper">
         <div class="bottom-content-left">金额：
-          <span class="bottom-content-count">￥99</span>
+          <span class="bottom-content-count">￥29.9</span>
         </div>
         <div class="bottom-content-right">
           <x-button mini type="primary" @click.native="jsApiCall">立即购买</x-button>
@@ -193,7 +194,6 @@ export default {
   .detail-main {
     font-size: 13px;
     p {
-      text-indent: 1rem;
       padding: 3px;
     }
     ul {
