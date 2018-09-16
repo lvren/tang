@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="height:100%;">
-    <div style="width: 95%;margin: 12px auto;">
+    <div style="width: 95%;margin: 0 auto;padding: 12px 0">
       <step :value="step" background-color='#fbf9fe'>
         <step-item title="确认订单"></step-item>
         <step-item title="绑定手机"></step-item>
