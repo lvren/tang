@@ -33,23 +33,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-.bottom-wrapper {
-  line-height: 41px;
-  height: 41px;
-  width: 100%;
-  .bottom-content-count {
-    color: red;
-    font-weight: bolder;
-  }
-  .bottom-content-left {
-    position: absolute;
-    left: 12px;
-  }
-  .bottom-content-right {
-    position: absolute;
-    right: 6px;
-  }
-}
-</style>

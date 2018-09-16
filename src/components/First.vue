@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;">
+  <div style="height: calc(100% - 50px)">
     <view-box ref="viewBox">
       <card>
         <img slot="header" src="../assets/background.jpeg" style="width:100%;display:block;">
@@ -211,6 +211,23 @@ export default {
     li {
       padding-bottom: 3px;
     }
+  }
+}
+.bottom-wrapper {
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+  .bottom-content-count {
+    color: red;
+    font-weight: bolder;
+  }
+  .bottom-content-left {
+    position: absolute;
+    left: 12px;
+  }
+  .bottom-content-right {
+    position: absolute;
+    right: 6px;
   }
 }
 </style>
