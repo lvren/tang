@@ -50,7 +50,7 @@
     <tabbar slot="bottom">
       <div class="bottom-wrapper">
         <div class="bottom-content-left">金额：
-          <span class="bottom-content-count">￥29.9</span>
+          <span class="bottom-content-count">￥19.9</span>
         </div>
         <div class="bottom-content-right">
           <x-button mini type="primary" @click.native="jsApiCall">立即购买</x-button>
