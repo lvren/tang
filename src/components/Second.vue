@@ -44,6 +44,9 @@ export default {
       showMsg: false
     };
   },
+  mounted() {
+    this.$http.get('/api/reportVisit', { params: { operate: 'viewSecond' } });
+  },
   watch: {
     mobile(value) {
       if (!value || /\d{11}/.test(value)) {

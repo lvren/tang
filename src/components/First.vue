@@ -32,6 +32,12 @@
               </ul>
             </div>
           </div>
+          <div class="detail-content">
+            <div class="detail-title">分享时间</div>
+            <div class="detail-main" style="padding-bottom: 12px">
+              2018.9.22日晚上8点
+            </div>
+          </div>
         </div>
       </card>
     </view-box>
@@ -92,6 +98,9 @@ export default {
   },
   beforeDestroy() {
     this.timeout && clearTimeout(this.timeout);
+  },
+  mounted() {
+    this.$http.get('/api/reportVisit', { params: { operate: 'viewFirst' } });
   },
   methods: {
     checkOrder(orderId) {
@@ -197,7 +206,6 @@ export default {
       padding: 3px;
     }
     ul {
-      padding-bottom: 12px;
       margin-left: 18px;
     }
     li {
