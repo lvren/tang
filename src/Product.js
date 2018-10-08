@@ -1,2 +1,2 @@
-const product = 'danmark';
+const product = 'member';
 export default product;

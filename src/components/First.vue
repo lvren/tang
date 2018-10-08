@@ -24,7 +24,7 @@
           </div>
           <div class="detail-content">
             <div class="detail-main" style="padding: 12px 0;margin-left: -6px;">
-              <check-icon :value.sync="agreement"> 我已阅读并同意<span @click="handleAgreement">《校友说服务协议》</span></check-icon>
+              <check-icon :value.sync="agreement"> 我已阅读并同意<span @click="handleAgreement" style="color: blue">《校友说服务协议》</span></check-icon>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@
     <tabbar slot="bottom">
       <div class="bottom-wrapper">
         <div class="bottom-content-left">金额：
-          <span class="bottom-content-count">￥19.9</span>
+          <span class="bottom-content-count">￥1</span>
         </div>
         <div class="bottom-content-right">
           <x-button mini type="primary" @click.native="jsApiCall">立即购买</x-button>
@@ -180,6 +180,12 @@ export default {
       })
     },
     jsApiCall() {
+      if (!this.agreement) {
+        this.msgTitle = '购买失败';
+        this.msgMessage = '请阅读并同意《校友说服务协议》后购买';
+        this.showMsg = true;
+        return false;
+      }
       this.showLoading = true;
       this.$http.get('/api/getPayParam', { params: { product } }).then(({ data }) => {
         if (data && data.status) {
