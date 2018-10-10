@@ -7,6 +7,7 @@
     <div
       class="vux-popover"
       ref="popover"
+      v-transfer-dom
       :style="popoverStyle"
       v-show="show">
         <div :class="arrowClass"></div>
@@ -37,7 +38,7 @@ export default {
     show: false,
     gutter: {
       type: Number,
-      default: 10
+      default: 5
     }
   },
   watch: {
@@ -66,7 +67,6 @@ export default {
           // this.position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
           this.position.left = trigger.offsetLeft
           this.position.top = trigger.getBoundingClientRect().top - popover.offsetHeight - this.gutter
-          // this.position.top = trigger.getBoundingClientRect().top - this.gutter
           break
         case 'left':
           this.position.left = trigger.offsetLeft - popover.offsetWidth - this.gutter
