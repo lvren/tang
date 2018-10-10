@@ -8,7 +8,7 @@
             <div class="detail-title">“校友说”简介</div>
             <div class="detail-main">
               <p>“校友说”项目致力于链接你和国外高校在读校友，让校友带你走“近”梦想校园。我们希望打破留学信息不对称的壁垒，由在读校友来介绍自己的学校，帮助申请学生，而不是中介。</p>
-              <p>“校友说”项目由原丹麦领馆高等教育官员发起，首期服务于希望2019年入读丹麦高校的学生。</p>
+              <p>“校友说”项目由原丹麦领馆高等教育官员发起，首期服务于对丹麦留学感兴趣尤其是希望2019年入读丹麦高校的学生。</p>
               <p style="font-weight: bolder;text-decoration: underline;">现在，只要1元，你就可以在2018年申请季：</p>
               <ul>
                 <li>由资深丹麦高等教育官员陪你唠“丹麦留学那些事”</li>
@@ -23,9 +23,14 @@
             <div class="detail-main" style="font-weight: bolder;text-decoration: underline;">1元即刻进群、开启丹麦留学申请季梦想之旅！</div>
           </div>
           <div class="detail-content">
-            <div class="detail-main" style="padding: 12px 0;margin-left: -6px;">
-              <check-icon :value.sync="agreement"> 我已阅读并同意<span @click="handleAgreement" style="color: blue">《校友说服务协议》</span></check-icon>
-            </div>
+            <popover placement="top" ref="agreePop">
+              <div slot="content" class="popover-content">
+                请阅读《校友说服务协议》并选择确认已读
+              </div>
+              <div class="detail-main" style="margin: 12px 6px 0 -6px;">
+                <check-icon :value.sync="agreement"> 我已阅读并同意<span @click="handleAgreement" style="color: blue">《校友说服务协议》</span></check-icon>
+              </div>
+            </popover>
           </div>
         </div>
       </card>
@@ -136,7 +141,7 @@
 </template>
 
 <script>
-import { ViewBox, Tabbar, Panel, Card, XButton, Alert, Loading, CheckIcon, XDialog } from "vux";
+import { ViewBox, Tabbar, Panel, Card, XButton, Alert, Loading, CheckIcon, XDialog, Popover } from "vux";
 import product from '../Product';
 
 export default {
@@ -149,6 +154,7 @@ export default {
     Loading,
     CheckIcon,
     XDialog,
+    Popover,
     Card
   },
   data() {
@@ -181,9 +187,13 @@ export default {
     },
     jsApiCall() {
       if (!this.agreement) {
-        this.msgTitle = '购买失败';
-        this.msgMessage = '请阅读并同意《校友说服务协议》后购买';
-        this.showMsg = true;
+        this.$refs.viewBox.scrollTo(600)
+        if (!this.$refs.agreePop.show) {
+          this.$refs.agreePop.toggle()
+        }
+        // this.msgTitle = '购买失败';
+        // this.msgMessage = '请阅读并同意《校友说服务协议》后购买';
+        // this.showMsg = true;
         return false;
       }
       this.showLoading = true;
@@ -325,5 +335,10 @@ export default {
       list-style: none;
     }
   }
+}
+
+.popover-content {
+  font-size: 12px;
+  margin: 6px;
 }
 </style>
