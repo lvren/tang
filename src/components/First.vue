@@ -23,12 +23,15 @@
             <div class="detail-main" style="font-weight: bolder;text-decoration: underline;">1元即刻进群、开启丹麦留学申请季梦想之旅！</div>
           </div>
           <div class="detail-content">
-            <popover placement="top" ref="agreePop">
+            <popover placement="top" :show="showPopover">
               <div slot="content" class="popover-content">
                 请阅读《校友说服务协议》并选择确认已读
               </div>
               <div class="detail-main" style="margin: 12px 6px 0 -6px;">
-                <check-icon :value.sync="agreement"> 我已阅读并同意<span @click="handleAgreement" style="color: blue">《校友说服务协议》</span></check-icon>
+                <check-icon :value.sync="agreement"> 
+                  我已阅读并同意
+                  <span @click="handleAgreement" style="color: blue">《校友说服务协议》</span>
+                </check-icon>
               </div>
             </popover>
           </div>
@@ -141,8 +144,9 @@
 </template>
 
 <script>
-import { ViewBox, Tabbar, Panel, Card, XButton, Alert, Loading, CheckIcon, XDialog, Popover } from "vux";
+import { ViewBox, Tabbar, Panel, Card, XButton, Alert, Loading, CheckIcon, XDialog } from "vux";
 import product from '../Product';
+import Popover from './Popover';
 
 export default {
   components: {
@@ -164,11 +168,20 @@ export default {
       msgMessage: '',
       showLoading: false,
       agreement: false,
-      showAgreement: false
+      showAgreement: false,
+      showPopover: false,
     };
   },
   beforeDestroy() {
     this.timeout && clearTimeout(this.timeout);
+  },
+  watch: {
+    agreement(value) {
+      if (value) {
+        console.log(value);
+        this.showPopover = false;
+      }
+    }
   },
   mounted() {
     this.$http.get('/api/reportVisit', { params: { operate: 'viewFirst' } });
@@ -187,10 +200,8 @@ export default {
     },
     jsApiCall() {
       if (!this.agreement) {
-        this.$refs.viewBox.scrollTo(600)
-        if (!this.$refs.agreePop.show) {
-          this.$refs.agreePop.toggle()
-        }
+        this.$refs.viewBox.scrollTo(600);
+        this.showPopover = true;
         // this.msgTitle = '购买失败';
         // this.msgMessage = '请阅读并同意《校友说服务协议》后购买';
         // this.showMsg = true;
