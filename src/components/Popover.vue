@@ -61,9 +61,6 @@ export default {
       const popover = this.$refs.popover
       switch (this.placement) {
         case 'top':
-          console.log(trigger.getBoundingClientRect());
-          console.log(trigger);
-          console.log(popover);
           // this.position.left = trigger.offsetLeft - popover.offsetWidth / 2 + trigger.offsetWidth / 2
           this.position.left = trigger.offsetLeft
           this.position.top = trigger.getBoundingClientRect().top - popover.offsetHeight - this.gutter

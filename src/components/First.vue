@@ -27,7 +27,7 @@
               <div slot="content" class="popover-content">
                 请阅读《校友说服务协议》并选择确认已读
               </div>
-              <div class="detail-main" style="margin: 12px 6px 0 -6px;">
+              <div class="detail-main" style="margin: 12px 6px 0 -6px;" ref="agreement">
                 <check-icon :value.sync="agreement"> 
                   我已阅读并同意
                   <span @click="handleAgreement" style="color: blue">《校友说服务协议》</span>
@@ -178,7 +178,6 @@ export default {
   watch: {
     agreement(value) {
       if (value) {
-        console.log(value);
         this.showPopover = false;
       }
     }
@@ -200,7 +199,8 @@ export default {
     },
     jsApiCall() {
       if (!this.agreement) {
-        this.$refs.viewBox.scrollTo(600);
+        const top = this.$refs.agreement.getBoundingClientRect().top
+        this.$refs.viewBox.scrollTo(top);
         this.showPopover = true;
         // this.msgTitle = '购买失败';
         // this.msgMessage = '请阅读并同意《校友说服务协议》后购买';
@@ -211,7 +211,6 @@ export default {
       this.$http.get('/api/getPayParam', { params: { product } }).then(({ data }) => {
         if (data && data.status) {
           const { param, order } = data;
-          // console.log(param);
           // this.checkOrder(order.orderId);
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest',
