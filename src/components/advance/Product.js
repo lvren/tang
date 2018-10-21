@@ -1,2 +1,2 @@
-const product = 'member';
+const product = 'advance';
 export default product;
