@@ -217,7 +217,7 @@ export default {
         return false;
       }
       this.showLoading = true;
-      this.$http.get('/api/getPayParam', { params: { product, number: this.number } }).then(({ data }) => {
+      this.$http.get('/api/getPayParam', { params: { product, number: this.time } }).then(({ data }) => {
         if (data && data.status) {
           const { param, order } = data;
           // this.checkOrder(order.orderId);
