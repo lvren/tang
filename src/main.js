@@ -7,6 +7,12 @@ import Layout from './Layout';
 import First from './components/First';
 import Second from './components/Second';
 import Third from './components/Third';
+
+import AdvanceLayout from './components/advance/Layout';
+import AdvanceFirst from './components/advance/First';
+import AdvanceSecond from './components/advance/Second';
+import AdvanceThird from './components/advance/Third';
+
 import product from './Product';
 import shareImg from './assets/shareLogo.jpeg';
 // import Home from './components/Layout';
@@ -30,6 +36,23 @@ const routes = [{
     {
       path: 'share',
       component: Third,
+    },
+  ],
+}, {
+  path: '/advance',
+  component: AdvanceLayout,
+  children: [
+    {
+      path: '',
+      component: AdvanceFirst,
+    },
+    {
+      path: 'pay',
+      component: AdvanceSecond,
+    },
+    {
+      path: 'share',
+      component: AdvanceThird,
     },
   ],
 }];
@@ -63,17 +86,18 @@ wx.ready(() => {
 });
 
 router.beforeEach((to, from, next) => {
+  const isAdvance = /advance/.test(to.path);
   Vue.http.get('/api/isLogin', {
-    params: { product },
+    params: { product: isAdvance ? 'advance' : product },
   }).then(({ data }) => {
     const { order } = data;
-    let toPath = '/';
+    let toPath = isAdvance ? '/advance' : '/';
     if (order && order.id) {
       if (order.isPay) {
         if (order.status) {
-          toPath = '/share';
+          toPath = isAdvance ? '/advance/share' : '/share';
         } else {
-          toPath = '/pay';
+          toPath = isAdvance ? '/advance/pay' : '/pay';
         }
       }
     }
