@@ -199,7 +199,7 @@ export default {
       this.$http.get('/api/checkOrder', { params: { order: orderId } }).then(({ data }) => {
         if (data && data.status) {
           this.showLoading = false;
-          this.$router.push({ path: `/pay` });
+          this.$router.push({ path: `/advance/pay` });
         } else {
           this.timeout && clearTimeout(this.timeout);
           this.timeout = setTimeout(this.checkOrder.bind(this, orderId), 2000);
@@ -231,7 +231,7 @@ export default {
                   .then(({ data }) => {
                     this.showLoading = false;
                     if (data && data.status) {
-                      this.$router.push({ path: `/pay` });
+                      this.$router.push({ path: `/advance/pay` });
                     } else {
                       this.msgTitle = '下单失败';
                       this.msgMessage = data && data.message ? data.message : '下单失败';

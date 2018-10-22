@@ -95,7 +95,7 @@ export default {
       }).then(({ data }) => {
         const { status } = data;
         if (status) {
-          this.$router.push({ path: `/share` });
+          this.$router.push({ path: `/advance/share` });
         } else {
           this.msgTitle = '验证失败';
           this.msgMessage = data && data.message ? data.message : "验证信息失败";
