@@ -4,7 +4,7 @@
       <step :value="step" background-color='#fbf9fe'>
         <step-item title="确认订单"></step-item>
         <step-item title="绑定手机"></step-item>
-        <step-item title="确认分享"></step-item>
+        <step-item title="完成申请"></step-item>
       </step>
     </div>
     <router-view></router-view>

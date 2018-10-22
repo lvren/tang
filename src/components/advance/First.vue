@@ -11,9 +11,7 @@
               <p>于是博主毕业N年后有一天午夜梦回，又想起了当时申请的困境，突发奇想决定打造一个帮助申请学生咨询国外高校校友的平台，首先就要拿丹麦来开刀！虽然丹麦留学的人好少好少的，但能帮助一个是一个！</p>
               <p>博主想打造的这个平台我给它取了个名字叫做“校友说”，由校友来说关于丹麦高校的留学经历、申请经验、学习和生活体验，但不是免费说。校友毕竟也要花费自己的精力和时间来提供咨询，所以是付费咨询（1VS1）。</p>
             </div>
-          </div>
-          <div class="detail-content" style="padding-top: 12px">
-            <div class="detail-title">1VS1在线咨询服务</div>
+            <div class="detail-main" style="font-weight: bolder;">1VS1在线咨询服务</div>
             <div class="detail-main">
               <p>内容包括：</p>
               <ul>
@@ -25,7 +23,7 @@
           </div>
           <div class="detail-content">
             <div class="detail-main" style="font-weight: bolder;text-decoration: underline;">感兴趣的就问起来吧！</div>
-            <div class="detail-main">咨询时长
+            <div class="detail-main" style="margin-top: 6px">咨询时长
               <inline-x-number width="30px" :min="1" v-model="time"></inline-x-number>小时
             </div>
           </div>
@@ -34,7 +32,7 @@
               <div slot="content" class="popover-content">
                 请阅读《校友说服务协议》并选择确认已读
               </div>
-              <div class="detail-main" style="margin: 12px 6px 0 -6px;" ref="agreement">
+              <div class="detail-main" style="margin: 6px 6px 0 -6px;" ref="agreement">
                 <check-icon :value.sync="agreement"> 
                   我已阅读并同意
                   <span @click="handleAgreement" style="color: blue">《校友说服务协议》</span>
@@ -139,7 +137,7 @@
     <tabbar slot="bottom">
       <div class="bottom-wrapper">
         <div class="bottom-content-left">金额：
-          <span class="bottom-content-count">￥120 * {{time}}</span>
+          <span class="bottom-content-count">￥{{120 * time}}</span>
         </div>
         <div class="bottom-content-right">
           <x-button mini type="primary" @click.native="jsApiCall">立即购买</x-button>
