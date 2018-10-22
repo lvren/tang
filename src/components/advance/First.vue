@@ -11,7 +11,7 @@
               <p>于是博主毕业N年后有一天午夜梦回，又想起了当时申请的困境，突发奇想决定打造一个帮助申请学生咨询国外高校校友的平台，首先就要拿丹麦来开刀！虽然丹麦留学的人好少好少的，但能帮助一个是一个！</p>
               <p>博主想打造的这个平台我给它取了个名字叫做“校友说”，由校友来说关于丹麦高校的留学经历、申请经验、学习和生活体验，但不是免费说。校友毕竟也要花费自己的精力和时间来提供咨询，所以是付费咨询（1VS1）。</p>
             </div>
-            <div class="detail-main" style="font-weight: bolder;font-size: 16px;padding: 3px 0;">1VS1在线咨询服务</div>
+            <div class="detail-title">1VS1在线咨询服务</div>
             <div class="detail-main">
               <p>内容包括：</p>
               <ul>
@@ -297,9 +297,9 @@ export default {
 .detail-content {
   padding: 0 15px 5px;
   .detail-title {
-    color: #999999;
+    font-weight: bolder;
     font-size: 16px;
-    padding-bottom: 6px;
+    padding: 6px 0;
   }
   .detail-main {
     font-size: 13px;
