@@ -8,19 +8,19 @@
             <div class="detail-title">“校友说”简介</div>
             <div class="detail-main">
               <p>“校友说”项目致力于链接你和国外高校在读校友，让校友带你走“近”梦想校园。我们希望打破留学信息不对称的壁垒，由在读校友来介绍自己的学校，帮助申请学生，而不是中介。</p>
-              <p>“校友说”项目由原丹麦领馆高等教育官员发起，首期服务于对丹麦留学感兴趣尤其是希望2019年入读丹麦高校的学生。</p>
+              <p>“校友说”发起人Viktoria曾留学瑞典，后在瑞典/丹麦等北欧国家政府教育部门工作多年，是一位北欧留学的资深工作人员。创建“校友说“的初衷就源于当年自己申请留学的时候苦于无人询问，因比希望可以打造一个平台链接现在的申请学生和在读校友。</p>
               <p style="font-weight: bolder;text-decoration: underline;">现在，只要1元，你就可以在2018年申请季：</p>
               <ul>
-                <li>由资深丹麦高等教育官员陪你唠“丹麦留学那些事”</li>
-                <li>收到丹麦留学干货/申请季动态分享</li>
-                <li>聆听每周丹麦高校在读校友在线分享/答疑</li>
+                <li>由北欧留学资深工作者/校友说发起人Viktoria陪你唠“北欧留学那些事”</li>
+                <li>收到北欧留学干货/申请季动态分享</li>
+                <li>聆听每周北欧高校在读校友在线分享/答疑</li>
                 <li>结识志同道合的留学小伙伴</li>
-                <li>选择更多的申请季增值服务(包括但不限于由丹麦高校在读校友提供的一对一咨询、文书修改以及伴申服务等)</li>
+                <li>选择更多的申请季增值服务(包括但不限于由北欧高校在读校友提供的一对一咨询、文书修改以及伴申服务等)</li>
               </ul>
             </div>
           </div>
           <div class="detail-content">
-            <div class="detail-main" style="font-weight: bolder;text-decoration: underline;">1元即刻进群、开启丹麦留学申请季梦想之旅！</div>
+            <div class="detail-main" style="font-weight: bolder;text-decoration: underline;">1元即刻进群、开启北欧留学申请季梦想之旅！</div>
           </div>
           <div class="detail-content">
             <popover placement="top" :show="showPopover">
